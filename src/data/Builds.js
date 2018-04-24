@@ -10,7 +10,11 @@ class Builds {
             this.builds = this.db.addCollection(collectionName)
         }
     }
-
+    /**
+     * Insert a new build object.
+     * 
+     * @param {object} build 
+     */
     insert(build) {
         if (!build) {
             return false;
@@ -23,6 +27,11 @@ class Builds {
         this.builds.insert(build)
     }
 
+    /**
+     * Get the latest builds from database. Optional with limit
+     * 
+     * @param {Number} limit 
+     */
     getLatestBuilds(limit) {
         const result = this.builds.chain().sort(function(a, b) {
             if (a.createdAt === b.createdAt) {
