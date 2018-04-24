@@ -2,7 +2,7 @@ const channel = 'builds';
 
 module.exports = {
     channel,
-    latest = async() => {
+    latest: async() => {
         return [];
     }
 }

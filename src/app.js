@@ -5,17 +5,11 @@ const distributorTransformer = require('./transformers/distributorTransformer');
 
 const TfsHook = require('./TfsHook');
 const app = express();
-const hook = new TfsHook({ port: 1234, url: '/tfs' }, app);
+const hook = new TfsHook({ port: process.env.PORT || 1234, url: process.env.URL || '/tfs' }, app);
 
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const dashboard = io.of('/dashboard');
-
-dashboard.emit('refresh', {})
-
-io.on('connection', function(socket){
-    console.log("connected");
-});
 
 dashboard.on('connect', async (socket) => {
     socket.join('share');

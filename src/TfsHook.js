@@ -13,6 +13,7 @@ class TfsHook extends EventEmitter {
     super();
 
     this.port = port;
+    this.url = url;
     this.id = ++hookId;
     this.app = app;
     this.app.use(parser.json());
@@ -26,7 +27,8 @@ class TfsHook extends EventEmitter {
   }
 
   listen() {
-    this.app.listen(this.port)
+    console.log(`Listening on port ${this.port}.`)
+    this.app.listen(this.port);
   }
 
 }

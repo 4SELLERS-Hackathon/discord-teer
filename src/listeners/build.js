@@ -52,13 +52,13 @@ const parseErrors = (message) => {
 }
 
 module.exports = ({ message, detailedMessage, resource }) => {
-  var embed = new discord.RichEmbed({
+  const embed = new discord.RichEmbed({
     color: statusToColor(resource.status),
     title: `${statusToEmoji(resource.status)} ${resource.buildNumber} ${resource.status}`,
     description: `[Details](${url(message.markdown)}), requested for ${requesters(resource.requests)}`
   });
 
-  var errors = parseErrors(detailedMessage.markdown);
+  const errors = parseErrors(detailedMessage.markdown);
   if (errors) {
     embed.addField(`Errors ${errorEmoji()}`, errors);
   }
