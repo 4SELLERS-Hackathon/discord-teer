@@ -1,5 +1,9 @@
 const TfsHook = require('./TfsHook');
-const hook = new TfsHook({ port: 1234, url: '/tfs' });
+
+const port = process.env.PORT || 1337;
+const url = process.env.URL || '/tfs';
+
+const hook = new TfsHook({ port, url });
 
 const build = require('./listeners/build');
 const workitem = require('./listeners/workitem');

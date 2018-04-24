@@ -1,3 +1,6 @@
 const discord = require('discord.js');
 
-module.exports = new discord.WebhookClient('428914641314250752', 'Itq0iySdy3CvwgAW3dPWP69Ae9Ej8cCbhBsRafe9yzYy54csBGzl2Xp-FowSiUf5AnR3');
+const id = process.env.WEBHOOK_ID;
+const token = process.env.WEBHOOK_TOKEN;
+
+module.exports = new discord.WebhookClient(id, token);
