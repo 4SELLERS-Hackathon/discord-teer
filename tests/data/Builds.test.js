@@ -50,3 +50,23 @@ test('save into database and retreive ', () => {
     expect(builds.getLatestBuilds()[0].id).toBe(2)
     expect(builds.getLatestBuilds()[1].id).toBe(4)
 })
+
+test('dont save empty builds into database', () => {
+    const builds = new Builds(new Database())
+
+    builds.insert();
+    expect(builds.getLatestBuilds().length).toBe(0);
+
+    builds.insert(null)
+    expect(builds.getLatestBuilds().length).toBe(0);
+})
+
+test('save into database and retreive limited', () => {
+    const builds = new Builds(new Database())
+
+    builds.insert({});
+    builds.insert({});
+    builds.insert({});
+
+    expect(builds.getLatestBuilds(2).length).toBe(2)
+})

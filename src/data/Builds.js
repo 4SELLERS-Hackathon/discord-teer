@@ -24,7 +24,7 @@ class Builds {
     }
 
     getLatestBuilds(limit) {
-        let result = this.builds.chain().sort(function(a, b) {
+        const result = this.builds.chain().sort(function(a, b) {
             if (a.createdAt === b.createdAt) {
                 return 0;
             }
