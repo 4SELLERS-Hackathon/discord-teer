@@ -1,9 +1,20 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+const distributors = require('./distributors');
+const distributorTransformer = require('./transformers/distributorTransformer');
+
 const TfsHook = require('./TfsHook');
+const app = express();
+const hook = new TfsHook({ port: process.env.PORT || 1234, url: process.env.URL || '/tfs' }, app);
 
-const port = process.env.PORT || 1337;
-const url = process.env.URL || '/tfs';
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+const dashboard = io.of('/dashboard');
 
-const hook = new TfsHook({ port, url });
+dashboard.on('connect', async (socket) => {
+    socket.join('share');
+    dashboard.to('share').emit('populate', {data: await Promise.all(distributors.map(distributorTransformer))});
+});
 
 const build = require('./listeners/build');
 const workitem = require('./listeners/workitem');
