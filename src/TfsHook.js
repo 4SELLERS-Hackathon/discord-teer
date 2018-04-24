@@ -9,12 +9,12 @@ let hookId = 0;
 
 class TfsHook extends EventEmitter {
 
-  constructor ({ url, port }) {
+  constructor ({ url, port }, app) {
     super();
 
     this.port = port;
     this.id = ++hookId;
-    this.app = express();
+    this.app = app;
     this.app.use(parser.json());
     this.app.use(cors());
     this.app.use(morgan(`[${this.id}] :method :url :status :response-time ms - :res[content-length]`));
